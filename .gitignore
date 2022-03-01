@@ -1,4 +1,20 @@
-.idea
 # Project exclude paths
 /target/
 /.idea/
+
+# Package Files #
+*.jar
+*.war
+*.ear
+
+*.iml
+*.class
+*.DS_Store
+.idea
+targetText
+com
+target
+*/target
+*/*/target
+out
+apache-tomcat-8.5.15
