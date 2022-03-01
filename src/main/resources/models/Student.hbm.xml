@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping xmlns="http://www.hibernate.org/xsd/hibernate-mapping">
+
+    <class name="models.Student" table="students">
+        <id name="id" type = "int" column="student_id">
+            <generator class="identity"/>
+        </id>
+        <property name="name" column="name"/>
+        <property name="surname" column="surname"/>
+        <property name="patronymic" column="patronymic"/>
+        <property name="dateStartLearning" column="date_start"/>
+        <property name="dateEndLearning" column="date_end"/>
+
+    </class>
+</hibernate-mapping>
