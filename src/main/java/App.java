@@ -19,14 +19,15 @@ public class App {
             MarkDao markDao = new MarkDaoImpl(factory);
 
             // работает
+
             //update(studentDao);
             //create(studentDao);
             //delete(studentDao);
-            getAllStudents(studentDao);
+            //getAllStudents(studentDao);
             //createMark(studentDao, markDao);
 
             // не работает
-            //readMark(markDao);
+            readMark(markDao);
 
 
 
@@ -45,7 +46,7 @@ public class App {
         //final Mark mark = markDao.read(1);
         for (Mark mark : markList)
         {
-            System.out.println("Read: " + mark);
+            System.out.println(mark);
         }
         //System.out.println("Read: " + mark);
     }

@@ -2,14 +2,13 @@ package dao;
 
 import com.sun.istack.NotNull;
 import models.Mark;
-import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 import java.util.List;
 
 public class MarkDaoImpl implements MarkDao{
-    private SessionFactory factory;
+    private final SessionFactory factory;
 
     public MarkDaoImpl(@NotNull final SessionFactory factory) {
         this.factory = factory;
@@ -30,6 +29,7 @@ public class MarkDaoImpl implements MarkDao{
     @Override
     public List<Mark> read(@NotNull final int id) {
         try (final Session session = factory.openSession()) {
+
 
             session.beginTransaction();
             List<Mark> markList = session.createQuery(

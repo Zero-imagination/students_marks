@@ -29,5 +29,12 @@ public class Mark {
         this.currentMark = currentMark;
     }
 
-
+    @Override
+    public String toString() {
+        return "Mark{" +
+                "id=" + id +
+                ", student=" + student +
+                ", currentMark='" + currentMark + '\'' +
+                '}';
+    }
 }
