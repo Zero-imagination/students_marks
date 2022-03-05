@@ -1,6 +1,6 @@
 # Project exclude paths
 /target/
-/.idea/
+.idea/
 
 # Package Files #
 *.jar
@@ -10,7 +10,6 @@
 *.iml
 *.class
 *.DS_Store
-.idea
 targetText
 com
 target

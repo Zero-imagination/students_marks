@@ -3,8 +3,6 @@ package gui;
 import dao.*;
 import models.Mark;
 import models.Student;
-import org.hibernate.SessionFactory;
-import org.hibernate.cfg.Configuration;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Set;
@@ -18,10 +16,10 @@ public class App {
         MarkServiceImpl markService = new MarkServiceImpl();
         //Student student = studentService.readStudent(2);
         //System.out.println(student);
-        List<Student> studentList = studentService.readListStudents();
+        /*List<Student> studentList = studentService.readListStudents();
         for (Student student1 : studentList){
             System.out.println(student1);
-        }
+        }*/
         /*SessionFactory factory = null;
         try {
             *//*factory = new Configuration().configure().buildSessionFactory();
