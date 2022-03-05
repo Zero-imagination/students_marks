@@ -5,9 +5,9 @@ import models.Student;
 import java.util.List;
 
 public interface StudentService {
-    public void createStudent(Student student);
-    public Student readStudent(int id);
-    public void updateStudent(Student student);
-    public void deleteStudent(int id);
-    public List<Student> listStudents();
+    void createStudent(Student student);
+    Student readStudent(int id);
+    void updateStudent(Student student);
+    void deleteStudent(int id);
+    List<Student>readListStudents();
 }

@@ -28,6 +28,7 @@ public class StudentDaoImpl implements StudentDao{
             session.save(student);
 
             session.getTransaction().commit();
+            session.close();
         }
     }
 
@@ -50,6 +51,8 @@ public class StudentDaoImpl implements StudentDao{
             session.update(student);
 
             session.getTransaction().commit();
+
+            session.close();
         }
     }
 
@@ -60,28 +63,16 @@ public class StudentDaoImpl implements StudentDao{
             session.beginTransaction();
             session.delete(student);
             session.getTransaction().commit();
+            session.close();
         }
     }
 
     @Override
     public List<Student> listStudent() {
         try (final Session session = factory.openSession()) {
-            return session.createQuery("from Student").list();
+            return session.createQuery("from Student", Student.class).getResultList();
         }
     }
-    /*@Override
-    public List<Mark> studentListMark(int id) {
-        try (final Session session = factory.openSession()) {
 
-
-            session.beginTransaction();
-            List markList = session.createQuery(
-                        "from Student as student " +
-                            "left join fetch Mark as mark " +
-                            "where mark.student = :id").setParameter("id", id).list();
-            session.getTransaction().commit();
-            return markList;
-        }
-    }*/
 
 }

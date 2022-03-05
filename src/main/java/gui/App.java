@@ -9,16 +9,25 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Set;
 
+import services.MarkServiceImpl;
 import services.StudentServiceImpl;
 
 public class App {
     public static void main(String[] args) {
-        SessionFactory factory = null;
+        StudentServiceImpl studentService = new StudentServiceImpl();
+        MarkServiceImpl markService = new MarkServiceImpl();
+        //Student student = studentService.readStudent(2);
+        //System.out.println(student);
+        List<Student> studentList = studentService.readListStudents();
+        for (Student student1 : studentList){
+            System.out.println(student1);
+        }
+        /*SessionFactory factory = null;
         try {
+            *//*factory = new Configuration().configure().buildSessionFactory();
 
-            factory = new Configuration().configure().buildSessionFactory();
             StudentDao studentDao = new StudentDaoImpl(factory);
-            MarkDao markDao = new MarkDaoImpl(factory);
+            MarkDao markDao = new MarkDaoImpl(factory);*//*
 
             //update(studentDao);
             //create(studentDao);
@@ -32,14 +41,14 @@ public class App {
             //readStudent(studentDao);
             //readStudentMarks(studentDao);
 
-            readMark(markDao);
+            //readMark(markDao);
 
 
         } finally {
             if (factory != null) {
                 factory.close();
             }
-        }
+        }*/
     }
     private static void delete(StudentDao studentDao) {
 

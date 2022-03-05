@@ -1,17 +1,18 @@
 package services;
-
-import dao.StudentDao;
+import dao.StudentDaoImpl;
 import models.Student;
+import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
 
 import java.util.List;
 
-public class StudentServiceImpl implements StudentService{
-    private StudentDao studentDao;
+public class StudentServiceImpl implements StudentService {
+    private final StudentDaoImpl studentDao;
 
-    public void setStudentDao(StudentDao studentDao) {
-        this.studentDao = studentDao;
+    public StudentServiceImpl() {
+        SessionFactory factory = new Configuration().configure().buildSessionFactory();
+        this.studentDao = new StudentDaoImpl(factory);
     }
-
     @Override
     public void createStudent(Student student) {
         this.studentDao.create(student);
@@ -33,7 +34,7 @@ public class StudentServiceImpl implements StudentService{
     }
 
     @Override
-    public List<Student> listStudents() {
+    public List<Student> readListStudents() {
         return this.studentDao.listStudent();
     }
 }
