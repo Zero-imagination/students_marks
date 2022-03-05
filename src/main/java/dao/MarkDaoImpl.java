@@ -27,22 +27,9 @@ public class MarkDaoImpl implements MarkDao{
     }
 
     @Override
-    public List<Mark> read(@NotNull final int id) {
+    public Mark read(@NotNull final int id) {
         try (final Session session = factory.openSession()) {
-
-
-            session.beginTransaction();
-            List<Mark> markList = session.createQuery(
-                    "from Mark as mark " +
-                            //"left join fetch mark.currentMark" +
-                            "where mark.id = :id").setParameter("id", id).getResultList();
-            session.getTransaction().commit();
-            return markList;
-            /*final Mark mark = session.get(Mark.class, id);
-            if (mark!=null){
-                Hibernate.initialize(mark.getStudent());
-            }
-            return mark;*/
+            return session.get(Mark.class, id);
         }
     }
 
@@ -71,4 +58,6 @@ public class MarkDaoImpl implements MarkDao{
             session.getTransaction().commit();
         }
     }
+
+
 }

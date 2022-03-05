@@ -8,14 +8,13 @@
     <class name="models.Mark" table="marks" >
         <id name="id" column="id" >
             <generator class="identity"/>
-
         </id>
         <property name="currentMark" column="mark"/>
-        <many-to-one name="student" column="student_id" fetch="join"
-                     class="models.Student"
+        <property name="studentId" column="student_id"/>
 
+        <many-to-one name="subject" column="subject_id" fetch="select"
+                     class="models.Subject"
                      cascade="save-update">
         </many-to-one>
-
     </class>
 </hibernate-mapping>

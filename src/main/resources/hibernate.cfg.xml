@@ -14,5 +14,6 @@
 
         <mapping resource="models/Student.hbm.xml" />
         <mapping resource="models/Mark.hbm.xml" />
+        <mapping resource="models/Subject.hbm.xml" />
     </session-factory>
 </hibernate-configuration>

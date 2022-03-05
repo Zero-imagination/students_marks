@@ -1,6 +1,7 @@
 package dao;
 
 
+import models.Mark;
 import models.Student;
 
 import java.util.List;
@@ -11,4 +12,5 @@ public interface StudentDao{
     void update(Student student);
     void delete(int id);
     List<Student> listStudent();
+    /*List<Mark> studentListMark(int id);*/
 }

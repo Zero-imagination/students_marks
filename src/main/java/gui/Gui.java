@@ -1,16 +1,20 @@
-package models;
+package gui;
 
 
-public class gui {
+import javax.swing.*;
+import gui.App;
+
+public class Gui {
     /*public static void main(String args[])
     {
         JFrame frame = new JFrame("test");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         JLabel b1;
-        b1 = new JLabel(test());
-        b1.setBounds(40,40,200,20);
+        App app = new App();
+        b1 = new JLabel(app.readAllStudents());
+        b1.setBounds(40,40,800,20);
         frame.add(b1);
-        frame.setSize(400,400);
+        frame.setSize(1000,400);
         frame.setLayout(null);
         frame.setVisible(true);
     }*/

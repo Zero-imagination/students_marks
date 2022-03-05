@@ -2,8 +2,20 @@ package models;
 
 public class Mark {
     private int id;
-    private Student student;
-    private String currentMark;
+    private int studentId;
+    private double currentMark;
+    private Subject subject;
+
+    //region get set methods
+
+
+    public Subject getSubject() {
+        return subject;
+    }
+
+    public void setSubject(Subject subject) {
+        this.subject = subject;
+    }
 
     public int getId() {
         return id;
@@ -13,27 +25,28 @@ public class Mark {
         this.id = id;
     }
 
-    public Student getStudent() {
-        return student;
+    public int getStudentId() {
+        return studentId;
     }
 
-    public void setStudent(Student student) {
-        this.student = student;
+    public void setStudentId(int studentId) {
+        this.studentId = studentId;
     }
 
-    public String getCurrentMark() {
+    public double getCurrentMark() {
         return currentMark;
     }
 
-    public void setCurrentMark(String currentMark) {
+    public void setCurrentMark(double currentMark) {
         this.currentMark = currentMark;
     }
+
+    //endregion
 
     @Override
     public String toString() {
         return "Mark{" +
-                "id=" + id +
-                ", student=" + student +
+                "subject=" + subject.getSubjectName() +
                 ", currentMark='" + currentMark + '\'' +
                 '}';
     }
