@@ -73,6 +73,11 @@ public class StudentDaoImpl implements StudentDao{
             return session.createQuery("from Student", Student.class).getResultList();
         }
     }
-
-
+    @Override
+    public List<Student> listStudent(String searchQuery){
+        try (final Session session = factory.openSession()) {
+            String query = "from Student where name like :searchQuery";
+            return session.createQuery(query, Student.class).setParameter("searchQuery", "%"+searchQuery+"%").getResultList();
+        }
+    }
 }

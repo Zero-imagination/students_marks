@@ -37,4 +37,8 @@ public class StudentServiceImpl implements StudentService {
     public List<Student> readListStudents() {
         return this.studentDao.listStudent();
     }
+    @Override
+    public List<Student> readListStudents(String searchQuery) {
+        return this.studentDao.listStudent(searchQuery);
+    }
 }
