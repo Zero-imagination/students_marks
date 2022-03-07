@@ -1,6 +1,5 @@
-package gui;
-
 import dao.*;
+import gui.Gui;
 import models.Mark;
 import models.Student;
 import java.time.LocalDate;
@@ -12,43 +11,9 @@ import services.StudentServiceImpl;
 
 public class App {
     public static void main(String[] args) {
-        StudentServiceImpl studentService = new StudentServiceImpl();
-        MarkServiceImpl markService = new MarkServiceImpl();
-        //Student student = studentService.readStudent(2);
-        //System.out.println(student);
-        List<Student> studentList = studentService.readListStudents();
-        for (Student student1 : studentList){
-            System.out.println(student1);
-        }
-        /*SessionFactory factory = null;
-        try {
-            *//*factory = new Configuration().configure().buildSessionFactory();
-
-            StudentDao studentDao = new StudentDaoImpl(factory);
-            MarkDao markDao = new MarkDaoImpl(factory);*//*
-
-            //update(studentDao);
-            //create(studentDao);
-            //createMark(studentDao, markDao);
-
-            //delete(studentDao);
-
-            //deleteMark(markDao);
-
-            //readAllStudents(studentDao);
-            //readStudent(studentDao);
-            //readStudentMarks(studentDao);
-
-            //readMark(markDao);
-
-
-        } finally {
-            if (factory != null) {
-                factory.close();
-            }
-        }*/
+        Gui.createGui();
     }
-    private static void delete(StudentDao studentDao) {
+    /*private static void delete(StudentDao studentDao) {
 
         studentDao.delete(9);
         System.out.println("Deleted");
@@ -98,5 +63,5 @@ public class App {
             for (Student student : studentList) {
                 System.out.println(student);
             }
-    }
+    }*/
 }
