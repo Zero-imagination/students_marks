@@ -1,21 +1,34 @@
 package gui;
 
+import gui.boxes.BoxSearchBar;
+import gui.boxes.BoxStudent;
+import gui.tables.TableStudents;
 
 import javax.swing.*;
-import gui.App;
+import java.awt.*;
 
 public class Gui {
-    /*public static void main(String args[])
+    public static void createGui()
     {
-        JFrame frame = new JFrame("test");
+        JFrame frame = new JFrame("Students and marks");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        JLabel b1;
-        App app = new App();
-        b1 = new JLabel(app.readAllStudents());
-        b1.setBounds(40,40,800,20);
-        frame.add(b1);
-        frame.setSize(1000,400);
-        frame.setLayout(null);
+
+        JTable tableMarks = new JTable();
+        JTable tableStudents = TableStudents.createTable(tableMarks);
+
+        Box contents = new Box(BoxLayout.Y_AXIS);
+
+        JScrollPane scrollTableStudents = new JScrollPane(tableStudents);
+        Box boxStudent = BoxStudent.createBox(frame, tableMarks);
+        Box boxSearchBar = BoxSearchBar.createBox(tableStudents);
+        scrollTableStudents.setMaximumSize(new Dimension(4000, 300));
+
+        contents.add(boxSearchBar);
+        contents.add(scrollTableStudents);
+        contents.add(boxStudent);
+
+        frame.getContentPane().add(contents);
+        frame.setSize(700,700);
         frame.setVisible(true);
-    }*/
+    }
 }
