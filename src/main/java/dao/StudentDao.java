@@ -12,5 +12,5 @@ public interface StudentDao{
     void update(Student student);
     void delete(int id);
     List<Student> listStudent();
-    /*List<Mark> studentListMark(int id);*/
+    List<Student> listStudent(String searchQuery);
 }

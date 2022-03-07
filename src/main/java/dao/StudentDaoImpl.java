@@ -1,15 +1,10 @@
 package dao;
 
 import com.sun.istack.NotNull;
-import models.Mark;
 import models.Student;
-import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.postgresql.core.Query;
-
 import java.util.List;
-import java.util.Set;
 
 public class StudentDaoImpl implements StudentDao{
     private final SessionFactory factory;
@@ -18,15 +13,11 @@ public class StudentDaoImpl implements StudentDao{
         this.factory = factory;
     }
 
-
     @Override
     public void create(Student student) {
         try (final Session session = factory.openSession()) {
-
             session.beginTransaction();
-
             session.save(student);
-
             session.getTransaction().commit();
             session.close();
         }
@@ -34,9 +25,7 @@ public class StudentDaoImpl implements StudentDao{
 
     @Override
     public Student read(Integer id) {
-
         try (final Session session = factory.openSession()) {
-
             return session.get(Student.class, id);
         }
     }
@@ -45,13 +34,9 @@ public class StudentDaoImpl implements StudentDao{
     @Override
     public void update(Student student) {
         try (final Session session = factory.openSession()) {
-
             session.beginTransaction();
-
             session.update(student);
-
             session.getTransaction().commit();
-
             session.close();
         }
     }
@@ -73,6 +58,11 @@ public class StudentDaoImpl implements StudentDao{
             return session.createQuery("from Student", Student.class).getResultList();
         }
     }
-
-
+    @Override
+    public List<Student> listStudent(String searchQuery){
+        try (final Session session = factory.openSession()) {
+            String query = "from Student where name like :searchQuery or surname like :searchQuery or patronymic like :searchQuery";
+            return session.createQuery(query, Student.class).setParameter("searchQuery", "%"+searchQuery+"%").getResultList();
+        }
+    }
 }
