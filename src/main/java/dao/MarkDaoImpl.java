@@ -5,7 +5,6 @@ import models.Mark;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
-import java.util.List;
 
 public class MarkDaoImpl implements MarkDao{
     private final SessionFactory factory;
@@ -32,6 +31,7 @@ public class MarkDaoImpl implements MarkDao{
             return session.get(Mark.class, id);
         }
     }
+
 
 
     @Override
