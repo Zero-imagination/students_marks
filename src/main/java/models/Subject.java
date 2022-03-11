@@ -1,5 +1,7 @@
 package models;
 
+
+
 public class Subject {
     private int id;
     private String subjectName;
@@ -30,4 +32,5 @@ public class Subject {
                 ", subjectName='" + subjectName + '\'' +
                 '}';
     }
+
 }
