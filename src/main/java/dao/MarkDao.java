@@ -2,8 +2,6 @@ package dao;
 
 import models.Mark;
 
-import java.util.List;
-
 public interface MarkDao {
     void create(Mark mark);
     Mark read(int id);
