@@ -1,9 +1,7 @@
 package models;
 
-import java.util.Date;
-import java.util.HashSet;
+import java.util.*;
 import java.time.LocalDate;
-import java.util.Set;
 
 public class Student {
     private int id;
@@ -12,8 +10,29 @@ public class Student {
     private String patronymic;
     private LocalDate dateStartLearning;
     private LocalDate dateEndLearning;
-    private Set<Mark> allMarks = new HashSet<>(0);
+    private Set<Mark> allMarks = new LinkedHashSet<>(0);
+    private final ArrayList<String[]> subjectAvgMarks = new ArrayList<>(0);
 
+    public ArrayList<String[]> getSubjectAvgMarks() {
+        Set<Subject> subjects=new LinkedHashSet<>();
+        for (Mark mark : allMarks){
+            subjects.add(mark.getSubject());
+        }
+        double[][] supp = new double[subjects.size()][2];
+        int iterator =0;
+        for (Subject subject : subjects){
+            for (Mark mark : allMarks){
+                if (mark.getSubject()==subject){
+                    supp[iterator][0] += mark.getCurrentMark();
+                    supp[iterator][1]++;
+                }
+            }
+            subjectAvgMarks.add(new String[]{subject.getSubjectName(),
+                    String.format(Locale.ENGLISH,"%.2f",supp[iterator][0]/supp[iterator][1])});
+            iterator++;
+        }
+        return subjectAvgMarks;
+    }
 
     //region get set methods
     public int getId() {
@@ -73,6 +92,8 @@ public class Student {
     }
 
     //endregion
+
+
 
 
     @Override
