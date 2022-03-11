@@ -1,37 +1,61 @@
 package gui.tables;
 
+import gui.boxes.BoxStudent;
+import gui.tables.model.TableModelAvgMarks;
+import models.Student;
+import services.StudentServiceImpl;
+
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
-import java.util.ArrayList;
 
 public class TableStudents {
-    private static ArrayList<JTextField> infoTextFields = new ArrayList<>();
-    private static int clickedRow;
-    private static JTable currentTableStudents;
+    private static int selectedRow;
+    private static JTable table;
 
-    public static void setInfoTextFields(ArrayList<JTextField> infoTextFields) {
-        TableStudents.infoTextFields = infoTextFields;
+    public static Student getSelectedStudent() {
+        return selectedStudent;
     }
 
-    public static JTable createTable(JTable tableMarks){
+    public static void setSelectedStudent(Student selectedStudent) {
+        TableStudents.selectedStudent = selectedStudent;
+    }
+
+    private static Student selectedStudent;
+
+    public static JTable getTable() {
+        return table;
+    }
+
+    public static JTable create(){
         JTable tableStudents = new JTable();
         tableStudents.addMouseListener(new java.awt.event.MouseAdapter() {
             @Override
             public void mouseClicked(java.awt.event.MouseEvent evt) {
+                StudentServiceImpl studentService = new StudentServiceImpl();
                 int row = tableStudents.rowAtPoint(evt.getPoint());
                 if (row >= 0) {
-                    clickedRow=row;
-                    tableMarks.setModel(TableModelMarks.createTableModelMark(Integer.parseInt(tableStudents.getValueAt(row,0).toString())));
+                    selectedRow =row;
+                    selectedStudent=studentService.readStudent(Integer.parseInt(tableStudents.getValueAt(row,0).toString()));
+                    TableAvgMarks.getTable().setModel(TableModelAvgMarks.create());
                     for (int i = 0; i < 6; i++){
-                        infoTextFields.get(i).setText(tableStudents.getValueAt(row,i).toString());
+                        BoxStudent.getInfoTextFields().get(i).setText(tableStudents.getValueAt(row,i).toString());
                     }
                 }
+                TableSubjectMarks.refresh();
             }
         });
-        currentTableStudents=tableStudents;
+        table =tableStudents;
         return tableStudents;
     }
-    public static void deleteRowTableStudents(){
-        ((DefaultTableModel)currentTableStudents.getModel()).removeRow(clickedRow);
+    public static void deleteRow(){
+        ((DefaultTableModel) table.getModel()).removeRow(selectedRow);
+    }
+    public static void addRow(Object[] rowData)
+    {
+        ((DefaultTableModel) table.getModel()).addRow(rowData);
+    }
+    public static void updateRow(Object[] rowData){
+        ((DefaultTableModel) table.getModel()).removeRow(selectedRow);
+        ((DefaultTableModel) table.getModel()).insertRow(selectedRow, rowData);
     }
 }
