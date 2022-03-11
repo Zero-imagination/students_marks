@@ -1,12 +1,13 @@
 package gui.boxes;
 
-import gui.tables.TableModelStudents;
+import gui.tables.model.TableModelStudents;
+import gui.tables.TableStudents;
 
 import javax.swing.*;
 import java.awt.*;
 
 public class BoxSearchBar {
-    public static Box createBox(JTable tableStudents) {
+    public static Box create(){
         Box boxSearchBar = new Box(BoxLayout.X_AXIS);
         JLabel labelSearchBar = new JLabel("Введите данные студента");
         JTextField searchBar = new JTextField();
@@ -16,7 +17,7 @@ public class BoxSearchBar {
         boxSearchBar.add(searchBar);
         boxSearchBar.add(btnUpdate);
 
-        btnUpdate.addActionListener(e -> tableStudents.setModel(TableModelStudents.createTableModelStudents(searchBar.getText())));
+        btnUpdate.addActionListener(e -> TableStudents.getTable().setModel(TableModelStudents.create(searchBar.getText())));
 
         boxSearchBar.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
         labelSearchBar.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
