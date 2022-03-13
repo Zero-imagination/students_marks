@@ -25,11 +25,7 @@ public class TableModelStudents extends JFrame {
         tableModel.setColumnIdentifiers(columnsHeader);
 
         StudentServiceImpl studentService = new StudentServiceImpl();
-
         List<Student> studentList = studentService.readListStudents(searchQuery);
-        //сортировка
-        //studentList.sort(Comparator.comparing(Student::getSurname));
-
         for (Student student : studentList){
             System.out.println(student);
             tableModel.addRow(getDataStudent(student));
