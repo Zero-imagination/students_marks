@@ -1,13 +1,12 @@
 package gui.tables.model;
 
-import gui.tables.TableAvgMarks;
+import gui.boxes.BoxStudent;
 import gui.tables.TableStudents;
 import models.Mark;
-
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
-import java.util.Objects;
-import java.util.Set;
+import java.util.List;
+
 
 public class TableModelSubjectMarks {
 
@@ -21,14 +20,11 @@ public class TableModelSubjectMarks {
             }
         };
         tableModel.setColumnIdentifiers(columnsHeader);
-        Set<Mark> marks = TableStudents.getSelectedStudent().getAllMarks();
+        String subjectName= BoxStudent.getSelectedSubjectName().getText();
+        List<Mark> subjectMarks = TableStudents.getSelectedStudent().getAverageMarkSubject(subjectName).getSubjectMark();
 
-
-        for (Mark mark : marks){
-            if (Objects.equals(mark.getSubject().getSubjectName(), TableAvgMarks.getSelectedSubject())){
-                //TableSubjectMarks.setSelectedSubjectMark(mark);
-                tableModel.addRow(getDataSubjectMarks(mark));
-            }
+        for (Mark mark : subjectMarks){
+            tableModel.addRow(getDataSubjectMarks(mark));
         }
         return tableModel;
     }

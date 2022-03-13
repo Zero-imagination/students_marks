@@ -5,7 +5,9 @@ import gui.tables.TableAvgMarks;
 import gui.tables.TableSubjectMarks;
 import gui.tables.model.TableModelStudents;
 import gui.tables.TableStudents;
+import models.Mark;
 import models.Student;
+import services.MarkServiceImpl;
 import services.StudentServiceImpl;
 import javax.swing.*;
 import java.time.LocalDate;
@@ -17,13 +19,15 @@ public class ButtonControlStudent {
         button.addActionListener(e -> {
             {
                 try {
-                    for (JTextField jTextField : BoxStudent.getInfoTextFields()){
-                        if(jTextField.getText() == null || jTextField.getText().length() == 0){
+                    for (int i=1; i<BoxStudent.getInfoTextFields().size(); i++){
+                        if(BoxStudent.getInfoTextFields().get(i).getText() == null || BoxStudent.getInfoTextFields().get(i).getText().length() == 0){
                             throw new IllegalArgumentException();
                         }
                     }
+                    Student student = new Student();
                     StudentServiceImpl studentService = new StudentServiceImpl();
-                    Student student = TableStudents.getSelectedStudent();
+                    if (TableStudents.getSelectedStudent()!=null)
+                        student = TableStudents.getSelectedStudent();
                     student.setSurname(BoxStudent.getInfoTextFields().get(1).getText());
                     student.setName(BoxStudent.getInfoTextFields().get(2).getText());
                     student.setPatronymic(BoxStudent.getInfoTextFields().get(3).getText());
@@ -37,12 +41,17 @@ public class ButtonControlStudent {
                         case CREATE -> {
                             student.setAllMarks(null);
                             studentService.createStudent(student);
-                            TableStudents.addRow(TableModelStudents.getDataStudent(student));
                             BoxStudent.getInfoTextFields().get(0).setText(String.valueOf(student.getId()));
+                            student=studentService.readStudent(Integer.parseInt(BoxStudent.getInfoTextFields().get(0).getText()));
+                            TableStudents.addRow(TableModelStudents.getDataStudent(student));
                             TableSubjectMarks.refresh();
                             TableAvgMarks.refresh();
                         }
                         case DELETE -> {
+                            MarkServiceImpl markService = new MarkServiceImpl();
+                            for (Mark mark : student.getAllMarks()){
+                                markService.deleteMark(mark.getId());
+                            }
                             studentService.deleteStudent(student.getId());
                             TableStudents.deleteRow();
                             TableSubjectMarks.refresh();

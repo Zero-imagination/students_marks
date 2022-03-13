@@ -11,28 +11,39 @@ public class Student {
     private LocalDate dateStartLearning;
     private LocalDate dateEndLearning;
     private Set<Mark> allMarks = new LinkedHashSet<>(0);
-    private final ArrayList<String[]> subjectAvgMarks = new ArrayList<>(0);
 
-    public ArrayList<String[]> getSubjectAvgMarks() {
-        Set<Subject> subjects=new LinkedHashSet<>();
+
+    public List<AverageMarkSubject> getAverageMarkSubjects() {
+        List<AverageMarkSubject> averageMarkSubjects = new LinkedList<>();
+        TreeSet<Subject> uniqueSubjects= new TreeSet<>();
         for (Mark mark : allMarks){
-            subjects.add(mark.getSubject());
+            uniqueSubjects.add(mark.getSubject());
         }
-        double[][] supp = new double[subjects.size()][2];
-        int iterator =0;
-        for (Subject subject : subjects){
+        for (Subject subject : uniqueSubjects){
+            AverageMarkSubject currentAverageMarkSubject = new AverageMarkSubject();
+            currentAverageMarkSubject.setSubject(subject);
+            List<Mark> subjectMarks = new LinkedList<>();
             for (Mark mark : allMarks){
-                if (mark.getSubject()==subject){
-                    supp[iterator][0] += mark.getCurrentMark();
-                    supp[iterator][1]++;
-                }
+                if (mark.getSubject()==subject)
+                    subjectMarks.add(mark);
             }
-            subjectAvgMarks.add(new String[]{subject.getSubjectName(),
-                    String.format(Locale.ENGLISH,"%.2f",supp[iterator][0]/supp[iterator][1])});
-            iterator++;
+            currentAverageMarkSubject.setSubjectMark(subjectMarks);
+            averageMarkSubjects.add(currentAverageMarkSubject);
         }
-        return subjectAvgMarks;
+        return averageMarkSubjects;
     }
+    public AverageMarkSubject getAverageMarkSubject(String subjectName){
+        AverageMarkSubject localMarkSubject = new AverageMarkSubject();
+        List<AverageMarkSubject> averageMarkSubjectList = getAverageMarkSubjects();
+        for (AverageMarkSubject currentAverageMarkSubject : averageMarkSubjectList){
+            if (Objects.equals(subjectName, currentAverageMarkSubject.getSubject().getSubjectName())){
+                localMarkSubject.setSubject(currentAverageMarkSubject.getSubject());
+                localMarkSubject.setSubjectMark(currentAverageMarkSubject.getSubjectMark());
+            }
+        }
+        return localMarkSubject;
+    }
+
 
     //region get set methods
     public int getId() {
