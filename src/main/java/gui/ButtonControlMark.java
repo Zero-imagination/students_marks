@@ -11,7 +11,6 @@ import models.Student;
 import services.MarkServiceImpl;
 import services.StudentServiceImpl;
 import services.SubjectServiceImpl;
-
 import javax.swing.*;
 import java.util.Objects;
 
@@ -20,72 +19,91 @@ public class ButtonControlMark {
     private static JButton buttonUpdate;
 
     private static JButton buttonDelete;
+    private static JButton buttonCreate;
 
-    public static void enableButtonDeleteUpdate(boolean enable){
+    public static void setButtonUpdate(JButton buttonUpdate) {
+        ButtonControlMark.buttonUpdate = buttonUpdate;
+    }
+
+    public static void setButtonDelete(JButton buttonDelete) {
+        ButtonControlMark.buttonDelete = buttonDelete;
+    }
+
+    public static void setButtonCreate(JButton buttonCreate) {
+        ButtonControlMark.buttonCreate = buttonCreate;
+    }
+
+    public static void enableButtonCreateMark(boolean enable){
+        buttonCreate.setEnabled(enable);
+    }
+
+    public static void enableButtonUpdateDeleteMark(boolean enable){
         buttonUpdate.setEnabled(enable);
         buttonDelete.setEnabled(enable);
+        //buttonCreate.setEnabled(enable);
     }
 
     public static JButton create(TypeButton typeButton){
-
         JButton button = new JButton();
-        if (typeButton==TypeButton.DELETE){
-            button.setEnabled(false);
-            buttonDelete = button;
-        }
-        if (typeButton==TypeButton.UPDATE){
-            button.setEnabled(false);
-            buttonUpdate = button;
-        }
+        button.setEnabled(false);
         button.addActionListener(e -> {
             String messageWhatChange = "";
             try {
-                if(BoxStudent.getInfoTextFields().get(1).getText()==null || BoxStudent.getInfoTextFields().get(1).getText().length()==0){
+                if (BoxStudent.getInfoTextFields().get(1).getText() == null || BoxStudent.getInfoTextFields().get(1).getText().length() == 0) {
                     throw new IllegalArgumentException();
                 }
-                SubjectServiceImpl subjectService = new SubjectServiceImpl();
-                StudentServiceImpl studentService = new StudentServiceImpl();
-                //придумать как избавиться от имплементации лишних сервисов, как можно считать id предмета из комбо бокса без запроса к бд
-                MarkServiceImpl markService = new MarkServiceImpl();
+                String selectedSubject = BoxStudent.getSelectedSubjectName().getText();
                 Mark mark = new Mark();
-                if (TableSubjectMarks.getSelectedSubjectMark()!=null)
-                    mark.setId(TableSubjectMarks.getSelectedSubjectMark().getId());
-                mark.setStudentId(TableStudents.getSelectedStudent().getId());
-                //считываем из комбобокса название предмета и ищем его в бд
-                mark.setSubject(subjectService.readSubject(Objects.requireNonNull(((JComboBox<?>) BoxStudent.getInfoMarkFields().get(0)).getSelectedItem()).toString()));
-                mark.setCurrentMark(Double.parseDouble(((JTextField) BoxStudent.getInfoMarkFields().get(1)).getText()));
+                int selectedStudentId = TableStudents.getSelectedStudent().getId();
+                //данный if нужен для того чтобы создавать поля у новой оценки без выделения уже существующих
 
-                switch (typeButton){
-                    case UPDATE -> {
-                        messageWhatChange = "Оценка "+TableSubjectMarks.getSelectedSubjectMark()+"\nбыла изменена на " + mark;
-                        markService.updateMark(mark);
-                        //TableSubjectMarks.updateRow(TableModelSubjectMarks.getDataSubjectMarks(mark));
-                    }
-                    case CREATE -> {
-                        messageWhatChange = "Оценка "+mark+" добавлена студенту "+TableStudents.getSelectedStudent().onlyFullName();
-                        markService.createMark(mark);
-                        //TableSubjectMarks.addRow(TableModelSubjectMarks.getDataSubjectMarks(mark));
-                        /*TableSubjectMarks.refresh();
-                        TableAvgMarks.refresh();*/
-                    }
-                    case DELETE -> {
-                        messageWhatChange = "Оценка " + mark +" удалена";
-                        markService.deleteMark(mark.getId());
-                        //TableSubjectMarks.deleteRow();
-                        /*TableSubjectMarks.refresh();
-                        TableAvgMarks.refresh();*/
+                if ((BoxStudent.getInfoMarkFields().get(0)).isEnabled()){
+                    SubjectServiceImpl subjectService = new SubjectServiceImpl();
+                    mark.setSubject(subjectService.readSubject(Objects.requireNonNull(((JComboBox<?>) BoxStudent.getInfoMarkFields().get(0)).getSelectedItem()).toString()));
+                }else {
+                    if (TableSubjectMarks.getSelectedMark()!=null){
+                        mark.setSubject(TableSubjectMarks.getSelectedMark().getSubject());
+                        mark.setId(TableSubjectMarks.getSelectedMark().getId());
+                    }else {
+                        mark.setSubject(TableStudents.getSelectedStudent().getAverageMarkSubject(selectedSubject).getSubject());
                     }
                 }
-                Student student = studentService.readStudent(TableStudents.getSelectedStudent().getId());
+
+                mark.setStudentId(TableStudents.getSelectedStudent().getId());
+                mark.setCurrentMark(Double.parseDouble(((JTextField) BoxStudent.getInfoMarkFields().get(1)).getText()));
+                switch (typeButton){
+                    case CREATE -> {
+                        messageWhatChange = "Оценка "+mark+" добавлена студенту "+TableStudents.getSelectedStudent().onlyFullName();
+                        MarkServiceImpl markService = new MarkServiceImpl();
+                        markService.createMark(mark);
+
+                    }
+                    case DELETE -> {
+                        MarkServiceImpl markService = new MarkServiceImpl();
+                        messageWhatChange = "Оценка " + mark +" удалена";
+                        markService.deleteMark(mark.getId());
+                        ButtonControlMark.enableButtonUpdateDeleteMark(false);
+                    }
+                    case UPDATE -> {
+                        MarkServiceImpl markService = new MarkServiceImpl();
+                        messageWhatChange = "Оценка "+TableSubjectMarks.getSelectedMark()+"\n была изменена на " + mark;
+                        markService.updateMark(mark);
+                        ButtonControlMark.enableButtonUpdateDeleteMark(false);
+                    }
+                }
+                StudentServiceImpl studentService = new StudentServiceImpl();
+                Student student = studentService.readStudent(selectedStudentId);
                 TableStudents.setSelectedStudent(student);
                 TableAvgMarks.getTable().setModel(TableModelAvgMarks.create());
                 TableSubjectMarks.getTable().setModel(TableModelSubjectMarks.create());
+
                 JOptionPane.showMessageDialog(Gui.getMainFrame(), "Данные успешно отредактированы! \n"+messageWhatChange);
-            } catch (IllegalArgumentException ex) {
-                JOptionPane.showMessageDialog(Gui.getMainFrame(), "Введены не все данные!");
+
+
+            }catch (IllegalArgumentException ex) {
+                JOptionPane.showMessageDialog(Gui.getMainFrame(), "Введены не корректные данные!");
             }
         });
-
         return button;
     }
 }
