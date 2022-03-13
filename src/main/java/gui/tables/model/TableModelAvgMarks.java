@@ -1,10 +1,10 @@
 package gui.tables.model;
 
 import gui.tables.TableStudents;
+import models.AverageMarkSubject;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import java.util.*;
-
 
 public class TableModelAvgMarks {
     private static final Object[] columnsHeader = new String[] {"Предмет", "Средний бал"};
@@ -16,13 +16,11 @@ public class TableModelAvgMarks {
             }
         };
         tableModel.setColumnIdentifiers(columnsHeader);
-        ArrayList<String[]> subjectAvgMarks = TableStudents.getSelectedStudent().getSubjectAvgMarks();
-
-        for (String[] subject : subjectAvgMarks){
-            tableModel.addRow(subject);
+        List<AverageMarkSubject> averageMarkSubjects = TableStudents.getSelectedStudent().getAverageMarkSubjects();
+        for (AverageMarkSubject currentAvgMark : averageMarkSubjects){
+            tableModel.addRow(new String[]{currentAvgMark.getSubject().getSubjectName(),
+                    String.format(Locale.ENGLISH,"%.2f", currentAvgMark.averageMark())});
         }
-
         return tableModel;
     }
-
 }
