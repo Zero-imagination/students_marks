@@ -1,8 +1,6 @@
 package models;
 
-
-
-public class Subject {
+public class Subject implements Comparable<Subject>{
     private int id;
     private String subjectName;
 
@@ -33,4 +31,8 @@ public class Subject {
                 '}';
     }
 
+    @Override
+    public int compareTo(Subject subject) {
+        return subjectName.compareTo(subject.getSubjectName());
+    }
 }
