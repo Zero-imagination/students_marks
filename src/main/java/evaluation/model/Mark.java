@@ -1,6 +1,6 @@
-package models;
+package evaluation.model;
 
-public class Mark {
+public class Mark implements Comparable<Mark>{
     private int id;
     private int studentId;
     private double currentMark;
@@ -49,5 +49,10 @@ public class Mark {
                 "subject=" + subject.getSubjectName() +
                 ", currentMark='" + currentMark + '\'' +
                 '}';
+    }
+
+    @Override
+    public int compareTo(Mark o) {
+        return this.id-o.getId();
     }
 }
