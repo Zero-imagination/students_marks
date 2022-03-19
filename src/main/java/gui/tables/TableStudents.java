@@ -1,10 +1,11 @@
 package gui.tables;
 
-import gui.ButtonControlMark;
-import gui.boxes.BoxStudent;
+import gui.buttons.ButtonControlMark;
+import gui.boxes.BoxMarkInfo;
+import gui.boxes.BoxStudentInfo;
 import gui.tables.model.TableModelAvgMarks;
-import models.Student;
-import services.StudentServiceImpl;
+import evaluation.model.Student;
+import evaluation.services.StudentServiceImpl;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
@@ -35,11 +36,11 @@ public class TableStudents {
                     selectedStudent=studentService.readStudent(Integer.parseInt(tableStudents.getValueAt(row,0).toString()));
                     TableAvgMarks.getTable().setModel(TableModelAvgMarks.create());
                     for (int i = 0; i < 6; i++){
-                        BoxStudent.getInfoTextFields().get(i).setText(tableStudents.getValueAt(row,i).toString());
+                        BoxStudentInfo.getInfoTextFields().get(i).setText(tableStudents.getValueAt(row,i).toString());
                     }
                 }
                 ButtonControlMark.enableButtonCreateMark(true);
-                (BoxStudent.getInfoMarkFields().get(0)).setEnabled(true);
+                (BoxMarkInfo.getInfoMarkFields().get(0)).setEnabled(true);
                 TableSubjectMarks.refresh();
             }
         });
@@ -56,6 +57,10 @@ public class TableStudents {
     public static void updateRow(Object[] rowData){
         ((DefaultTableModel) table.getModel()).removeRow(selectedRow);
         ((DefaultTableModel) table.getModel()).insertRow(selectedRow, rowData);
+    }
+    public static void refresh(){
+        DefaultTableModel model = (DefaultTableModel) table.getModel();
+        model.setRowCount(0);
     }
 
 }

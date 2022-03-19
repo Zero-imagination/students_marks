@@ -1,7 +1,7 @@
 package gui.tables.model;
 
-import models.Student;
-import services.StudentServiceImpl;
+import evaluation.model.Student;
+import evaluation.services.StudentServiceImpl;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;

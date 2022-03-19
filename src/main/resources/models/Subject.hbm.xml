@@ -5,7 +5,7 @@
 
 <hibernate-mapping xmlns="http://www.hibernate.org/xsd/hibernate-mapping">
 
-    <class name="models.Subject" table="subjects" >
+    <class name="evaluation.model.Subject" table="subjects" >
         <id name="id" column="subject_id" >
             <generator class="identity"/>
         </id>

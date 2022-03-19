@@ -1,7 +1,7 @@
 package utils;
-import models.Mark;
-import models.Student;
-import models.Subject;
+import evaluation.model.Mark;
+import evaluation.model.Student;
+import evaluation.model.Subject;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;

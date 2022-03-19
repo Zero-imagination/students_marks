@@ -1,8 +1,8 @@
 package gui;
 
 
-import models.Subject;
-import services.SubjectServiceImpl;
+import evaluation.model.Subject;
+import evaluation.services.SubjectServiceImpl;
 import javax.swing.*;
 import java.util.ArrayList;
 import java.util.Collections;
