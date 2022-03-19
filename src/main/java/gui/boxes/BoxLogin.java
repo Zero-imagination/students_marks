@@ -45,10 +45,10 @@ public class BoxLogin {
             User user = userAuthorization.getAuthenticatedUser(fieldUsername.getText(), new String(fieldPassword.getPassword()));
             if (user!=null)
             {
-                UserPermissions.createPermissions();
                 Gui.getPanelAuthentication().remove(0);
                 Gui.getPanelAuthentication().add(BoxLogout.create(user.getUsername()));
-                Gui.setUserRole(user.getRoles());
+                UserPermissions.setUserRole(user.getRoles());
+                UserPermissions.createPermissions();
                 Gui.addPanelStudents();
                 labelError.setVisible(false);
             } else {

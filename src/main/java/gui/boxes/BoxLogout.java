@@ -1,5 +1,6 @@
 package gui.boxes;
 
+import authentication.UserPermissions;
 import gui.Gui;
 import gui.tables.TableAvgMarks;
 import gui.tables.TableStudents;
@@ -29,7 +30,7 @@ public class BoxLogout {
             TableStudents.refresh();
             Gui.getPanelAuthentication().remove(0);
             Gui.getPanelAuthentication().add(BoxLogin.create());
-            Gui.setUserRole(null);
+            UserPermissions.setUserRole(null);
             Gui.removePanelStudents();
         });
 
