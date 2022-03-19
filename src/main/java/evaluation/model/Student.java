@@ -1,4 +1,4 @@
-package models;
+package evaluation.model;
 
 import java.util.*;
 import java.time.LocalDate;
@@ -12,36 +12,35 @@ public class Student {
     private LocalDate dateEndLearning;
     private Set<Mark> allMarks = new LinkedHashSet<>(0);
 
-
     public List<AverageMarkSubject> getAverageMarkSubjects() {
         List<AverageMarkSubject> averageMarkSubjects = new LinkedList<>();
-        TreeSet<Subject> uniqueSubjects= new TreeSet<>();
         for (Mark mark : allMarks){
-            uniqueSubjects.add(mark.getSubject());
-        }
-        for (Subject subject : uniqueSubjects){
-            AverageMarkSubject currentAverageMarkSubject = new AverageMarkSubject();
-            currentAverageMarkSubject.setSubject(subject);
-            List<Mark> subjectMarks = new LinkedList<>();
-            for (Mark mark : allMarks){
-                if (mark.getSubject()==subject)
-                    subjectMarks.add(mark);
+            boolean markAdded = false;
+            for (AverageMarkSubject average : averageMarkSubjects){
+                if (average.getSubject()==mark.getSubject()){
+                    average.getSubjectMark().add(mark);
+                    markAdded = true;
+                    break;
+                }
             }
-            currentAverageMarkSubject.setSubjectMark(subjectMarks);
-            averageMarkSubjects.add(currentAverageMarkSubject);
+            if (!markAdded){
+                AverageMarkSubject currentAverageMarkSubject = new AverageMarkSubject();
+                currentAverageMarkSubject.setSubject(mark.getSubject());
+                currentAverageMarkSubject.getSubjectMark().add(mark);
+                averageMarkSubjects.add(currentAverageMarkSubject);
+            }
         }
+        Collections.sort(averageMarkSubjects);
         return averageMarkSubjects;
     }
     public AverageMarkSubject getAverageMarkSubject(String subjectName){
-        AverageMarkSubject localMarkSubject = new AverageMarkSubject();
-        List<AverageMarkSubject> averageMarkSubjectList = getAverageMarkSubjects();
-        for (AverageMarkSubject currentAverageMarkSubject : averageMarkSubjectList){
+        for (AverageMarkSubject currentAverageMarkSubject : getAverageMarkSubjects()){
             if (Objects.equals(subjectName, currentAverageMarkSubject.getSubject().getSubjectName())){
-                localMarkSubject.setSubject(currentAverageMarkSubject.getSubject());
-                localMarkSubject.setSubjectMark(currentAverageMarkSubject.getSubjectMark());
+                Collections.sort(currentAverageMarkSubject.getSubjectMark());
+                return currentAverageMarkSubject;
             }
         }
-        return localMarkSubject;
+        return null;
     }
 
 
