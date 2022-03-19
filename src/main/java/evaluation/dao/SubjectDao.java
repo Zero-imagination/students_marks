@@ -1,6 +1,6 @@
-package dao;
+package evaluation.dao;
 
-import models.Subject;
+import evaluation.model.Subject;
 
 import java.util.List;
 

@@ -1,6 +1,6 @@
-package services;
+package evaluation.services;
 
-import models.Student;
+import evaluation.model.Student;
 
 import java.util.List;
 

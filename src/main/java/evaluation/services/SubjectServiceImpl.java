@@ -1,9 +1,7 @@
-package services;
+package evaluation.services;
 
-import dao.StudentDaoImpl;
-import dao.SubjectDaoImpl;
-import models.Student;
-import models.Subject;
+import evaluation.dao.SubjectDaoImpl;
+import evaluation.model.Subject;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 

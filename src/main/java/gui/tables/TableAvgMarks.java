@@ -1,7 +1,8 @@
 package gui.tables;
 
-import gui.ButtonControlMark;
-import gui.boxes.BoxStudent;
+import gui.buttons.ButtonControlMark;
+import gui.boxes.BoxMarkInfo;
+import gui.boxes.BoxStudentInfo;
 import gui.tables.model.TableModelSubjectMarks;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -24,12 +25,12 @@ public class TableAvgMarks {
                 int row = tableAvgMarks.rowAtPoint(evt.getPoint());
                 if (row >= 0) {
                     String selectedSubject = String.valueOf(tableAvgMarks.getValueAt(row,0));
-                    BoxStudent.getSelectedSubjectName().setText(selectedSubject);
+                    BoxStudentInfo.getSelectedSubjectName().setText(selectedSubject);
                     TableSubjectMarks.getTable().setModel(TableModelSubjectMarks.create());
                     ButtonControlMark.enableButtonCreateMark(true);
                     ButtonControlMark.enableButtonUpdateDeleteMark(false);
-                    (BoxStudent.getInfoMarkFields().get(0)).setEnabled(true);
-                    ((JComboBox<?>) BoxStudent.getInfoMarkFields().get(0)).setSelectedItem((tableAvgMarks.getValueAt(row,0).toString()));
+                    (BoxMarkInfo.getInfoMarkFields().get(0)).setEnabled(true);
+                    ((JComboBox<?>) BoxMarkInfo.getInfoMarkFields().get(0)).setSelectedItem((tableAvgMarks.getValueAt(row,0).toString()));
                 }
             }
         });

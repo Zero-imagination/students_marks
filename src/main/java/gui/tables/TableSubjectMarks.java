@@ -1,8 +1,9 @@
 package gui.tables;
 
-import gui.ButtonControlMark;
-import gui.boxes.BoxStudent;
-import models.Mark;
+import gui.buttons.ButtonControlMark;
+import gui.boxes.BoxMarkInfo;
+import gui.boxes.BoxStudentInfo;
+import evaluation.model.Mark;
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
@@ -46,21 +47,22 @@ public class TableSubjectMarks {
             }
         });
         tableSubjectMarks.setAutoCreateRowSorter(true);
+
         tableSubjectMarks.addMouseListener(new java.awt.event.MouseAdapter() {
             @Override
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 int row = tableSubjectMarks.rowAtPoint(evt.getPoint());
                 if (row >= 0) {
                     double currentMark = Double.parseDouble(String.valueOf(tableSubjectMarks.getValueAt(row,0)));
-                    String subjectName=BoxStudent.getSelectedSubjectName().getText();
+                    String subjectName= BoxStudentInfo.getSelectedSubjectName().getText();
                     List<Mark> subjectMarks = TableStudents.getSelectedStudent().getAverageMarkSubject(subjectName).getSubjectMark();
                     for (Mark mark : subjectMarks){
                         if(mark.getCurrentMark()==currentMark)
                             selectedMark =mark;
                     }
                     ButtonControlMark.enableButtonUpdateDeleteMark(true);
-                    ((JTextField)BoxStudent.getInfoMarkFields().get(1)).setText(tableSubjectMarks.getValueAt(row,0).toString());
-                    (BoxStudent.getInfoMarkFields().get(0)).setEnabled(false);
+                    ((JTextField) BoxMarkInfo.getInfoMarkFields().get(1)).setText(tableSubjectMarks.getValueAt(row,0).toString());
+                    (BoxMarkInfo.getInfoMarkFields().get(0)).setEnabled(false);
                 }
             }
         });

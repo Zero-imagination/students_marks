@@ -1,6 +1,6 @@
-package services;
+package evaluation.services;
 
-import models.Mark;
+import evaluation.model.Mark;
 
 public interface MarkService {
     void createMark(Mark mark);

@@ -1,7 +1,7 @@
-package services;
+package evaluation.services;
 
-import dao.MarkDaoImpl;
-import models.Mark;
+import evaluation.dao.MarkDaoImpl;
+import evaluation.model.Mark;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 

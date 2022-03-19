@@ -1,7 +1,7 @@
-package dao;
+package evaluation.dao;
 
 import com.sun.istack.NotNull;
-import models.Student;
+import evaluation.model.Student;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import java.util.List;

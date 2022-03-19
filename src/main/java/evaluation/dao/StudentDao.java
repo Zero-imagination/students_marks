@@ -1,8 +1,7 @@
-package dao;
+package evaluation.dao;
 
 
-import models.Mark;
-import models.Student;
+import evaluation.model.Student;
 
 import java.util.List;
 

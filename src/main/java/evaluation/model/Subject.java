@@ -1,4 +1,4 @@
-package models;
+package evaluation.model;
 
 public class Subject implements Comparable<Subject>{
     private int id;

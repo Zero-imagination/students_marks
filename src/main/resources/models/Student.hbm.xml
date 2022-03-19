@@ -5,7 +5,7 @@
 
 <hibernate-mapping xmlns="http://www.hibernate.org/xsd/hibernate-mapping">
 
-    <class name="models.Student" table="students">
+    <class name="evaluation.model.Student" table="students">
         <id name="id" type = "int" column="student_id">
             <generator class="identity"/>
         </id>
@@ -18,7 +18,7 @@
 
         <set name="allMarks" subselect="true" cascade="delete" table="marks" >
             <key column="student_id" />
-            <one-to-many class="models.Mark"/>
+            <one-to-many class="evaluation.model.Mark"/>
         </set>
     </class>
 </hibernate-mapping>

@@ -1,8 +1,8 @@
 package gui.tables.model;
 
-import gui.boxes.BoxStudent;
+import gui.boxes.BoxStudentInfo;
 import gui.tables.TableStudents;
-import models.Mark;
+import evaluation.model.Mark;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import java.util.List;
@@ -20,7 +20,7 @@ public class TableModelSubjectMarks {
             }
         };
         tableModel.setColumnIdentifiers(columnsHeader);
-        String subjectName= BoxStudent.getSelectedSubjectName().getText();
+        String subjectName= BoxStudentInfo.getSelectedSubjectName().getText();
         List<Mark> subjectMarks = TableStudents.getSelectedStudent().getAverageMarkSubject(subjectName).getSubjectMark();
 
         for (Mark mark : subjectMarks){

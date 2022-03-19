@@ -1,4 +1,4 @@
-package gui;
+package gui.buttons;
 
 public enum TypeButton {
     UPDATE,

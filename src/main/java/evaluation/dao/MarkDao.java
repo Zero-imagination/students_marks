@@ -1,6 +1,6 @@
-package dao;
+package evaluation.dao;
 
-import models.Mark;
+import evaluation.model.Mark;
 
 public interface MarkDao {
     void create(Mark mark);

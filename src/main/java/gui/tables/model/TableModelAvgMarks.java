@@ -1,7 +1,7 @@
 package gui.tables.model;
 
 import gui.tables.TableStudents;
-import models.AverageMarkSubject;
+import evaluation.model.AverageMarkSubject;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import java.util.*;
