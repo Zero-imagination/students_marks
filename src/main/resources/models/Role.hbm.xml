@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping xmlns="http://www.hibernate.org/xsd/hibernate-mapping">
+    <class name="authentication.model.Role" table="roles" >
+        <id name="id" column="id" >
+            <generator class="identity"/>
+        </id>
+        <property name="name" column="name"/>
+        <set name="users" table="user_role" cascade="all" fetch="select">
+            <key column="user_id" not-null="true"/>
+            <many-to-many entity-name="authentication.model.User">
+                <column name="role_id"/>
+            </many-to-many>
+        </set>
+    </class>
+</hibernate-mapping>
